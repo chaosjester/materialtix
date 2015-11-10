@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tixati Web Interface</title>
+	<!--Import materialize.css-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="/custom.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<script>
+	<!--
+	function udctrls()
+	{
+		var inputs = document.getElementsByClassName("selection");
+		var sel = 0;
+		for(var i=inputs.length-1; i>=0; i--)
+		{
+			if(inputs[i].checked) sel=1;
+		}
+		var btns = document.getElementsByClassName("selctrl");
+		for(var i=btns.length-1; i>=0; i--)
+		{
+			if(sel) btns[i].disabled=false;
+			else btns[i].disabled=true;
+		}
+
+
+	}
+//-->
+</script>
+
+
+
+<body onload="udctrls()">
+	<div class="navbar-fixed">
+		<nav>
+			<div class="nav-wrapper blue-grey darken-2">
+				<a href="/home" class="brand-logo">Tixati</a>
+				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+				<ul class="right hide-on-med-and-down">
+					<li><a href="/home">Home</a></li>
+					<li><a href="/transfers">Transfers</a></li>
+					<li><a href="/log">Log</a></li>
+					<li><a href="/settings">Settings</a></li>
+					<li><a href="/help">Help</a></li>
+				</ul>
+				<ul class="side-nav" id="mobile-demo">
+					<li><a href="home">Home</a></li>
+					<li><a href="/transfers">Transfers</a></li>
+					<li><a href="/log">Log</a></li>
+					<li><a href="/settings">Settings</a></li>
+					<li><a href="/help">Help</a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<br/>
+	<form form method="post" action="/transfers/action" enctype="multipart/form-data">
+		<div class="center">
+			<button type="submit" name="start" class="btn waves-effect waves-light green"><i class="fa fa-play"></i></button>
+			<button type="submit" name="stop" class="btn waves-effect waves-light yellow"><i class="fa fa-stop"></i></button>
+			<button type="submit" name="remove" class="btn waves-effect waves-light yellow darken-4"><i class="fa fa-minus"></i></button>
+			<button type="submit" name="delete" class="btn waves-effect waves-light red"><i class="fa fa-times"></i></button>
+		</div>
+		<div class="container">
+			<div class="col m12 s12">
+				<!--if filterenabled-->
+				<ul class="collapsible" data-collapsible="accordion">
+					<li>
+						<div class="collapsible-header"><i class="fa fa-caret-square-o-down"></i>Filter</div>
+						<div class="collapsible-body center">
+							<div class="row">
+								<div class="col s8 offset-s2">
+									<div class="input-field center">
+										<input type="checkbox" name="xferfilter_on" value="1" $chk_xfers_filter$/>
+										<input type="text" id="filter" name="xferfilter_text" size=40 value="$xferfilter_text$" placeholder="Filter"/>
+										<!-- <label for="filter">Filter</label> -->
+										<br>
+										<select name="xferfilter_mode">
+											<option value="" disabled selected>Match Conditions</option>
+											<!--select xferfilter_mode-->
+										</select>
+										<button class="waves-effect waves-light btn" type="submit" name="xferfilter_clear">Clear</button>
+										<button class="waves-effect waves-light btn" type="submit" name="xferfilter_apply">Apply</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<!--endif-->        
+				<br/>
+
+				<div class="row">
+					<!--list_start transfers-->
+					<div class="col s12 m6">
+						<div class="card hoverable">
+							<div class="card-content white-text blue-grey-text text-lighten-2">
+								<span class="card-title truncate"><input class="checkbox" id="$guid$" type="checkbox" name="$guid$" value="1" onclick="udctrls()"/><label for="$guid$"><a href="/transfers/$guid$/details">$name$</a></label></span>
+								<script type="text/javascript">
+									setInterval(function(){
+										jQuery.ajax({
+											url: "progress.html",
+											success: function(result) {
+												var html = jQuery('<div>').html(result);
+												var percent = (html.find("div#$guid$progress").html());
+												var tstatus = (html.find("div#$guid$status").html());
+												var rtime = (html.find("div#$guid$time").html());
+												$('#$guid$prog').css('width' , percent+'%');
+												$('#$guid$prog').removeClass('indeterminate').addClass('determinate')
+												$('#$guid$progtext').text(percent+'%');
+												$('#$guid$status').text(tstatus);
+												$('#$guid$progtime').text(rtime);
+											},
+										});
+									}, 2500);
+								</script>
+								<div class="progress">
+									<div id="$guid$prog" class="indeterminate"></div>
+								</div>
+								<p>Progress: <span id="$guid$progtext" class="right"></span></p>
+								<p>Remaining Time: <span id="$guid$progtime" class="right"></span></p>
+								<p>Status: <span id="$guid$status" class="right"></span></p>
+							</div>
+						</div>
+					</div>
+					<!--list_end-->
+				</div>
+				<div class="center">
+					<button type="submit" name="start" class="btn waves-effect waves-light green"><i class="fa fa-play"></i></button>
+					<button type="submit" name="stop" class="btn waves-effect waves-light yellow"><i class="fa fa-stop"></i></button>
+					<button type="submit" name="remove" class="btn waves-effect waves-light yellow darken-4"><i class="fa fa-minus"></i></button>
+					<button type="submit" name="delete" class="btn waves-effect waves-light red"><i class="fa fa-times"></i></button>
+				</div>
+
+				<br/>
+				<ul class="collapsible popout center" data-collapsible="accordion">
+					<li>
+						<div class="collapsible-header">General Priority Options</div>
+						<div class="collapsible-body center">
+							<div class="container">
+								<label for="prigrp">Bandwidth Priority Group</label>
+								<select name="priogrp" class="form-control">
+									<option value="8">Ultra High</option>
+									<option value="7">Very High</option>
+									<option value="6">High</option>
+									<option value="5">Above Normal</option>
+									<option value="4" selected>Normal</option>
+									<option value="3">Below Normal</option>
+									<option value="2">Low</option>
+									<option value="1">Very Low</option>
+									<option value="0">Ultra Low</option>
+								</select>
+								<br/>
+								<label for="share">Peer Allowance</label>
+								<select name="share" class="form-control">
+									<option value="1000">x10</option>
+									<option value="500">x5</option>
+									<option value="400">x4</option>
+									<option value="300">x3</option>
+									<option value="200">x2</option>
+									<option value="150">x1.5</option>
+									<option value="100" selected>Normal</option>
+									<option value="75">75%</option>
+									<option value="50">50%</option>
+									<option value="20">20%</option>
+									<option value="10">10%</option>
+									<option value="5">5%</option>
+									<option value="2">2%</option>
+								</select>
+								<button type="submit" name="update_prio" class="waves-effect waves-light btn">Apply</button>
+								<br/><br/>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="collapsible-header">Incoming Priority Options</div>
+						<div class="collapsible-body center">
+							<div class="container">
+								<label for="inlimit">Incoming Bandwidth Limit</label>
+								<select name="inlimit" class="form-control">
+									<option value="0" selected>No Limit</option>
+									<option value="100000">100 KB/s</option>
+									<option value="75000">75 KB/s</option>
+									<option value="50000">50 KB/s</option>
+									<option value="40000">40 KB/s</option>
+									<option value="30000">30 KB/s</option>
+									<option value="25000">25 KB/s</option>
+									<option value="20000">20 KB/s</option>
+									<option value="15000">15 KB/s</option>
+									<option value="10000">10 KB/s</option>
+									<option value="7500">7.5 KB/s</option>
+									<option value="5000">5 KB/s</option>
+									<option value="4000">4 KB/s</option>
+									<option value="3000">3 KB/s</option>
+									<option value="2000">2 KB/s</option>
+									<option value="1000">1 KB/s</option>
+								</select>
+								<br />     
+								<label for="inpriogrp">Priority Group</label>
+								<select name="inpriogrp" class="form-control">
+									<option value="8">Ultra High</option>
+									<option value="7">Very High</option>
+									<option value="6">High</option>
+									<option value="5">Above Normal</option>
+									<option value="4" selected>Normal</option>
+									<option value="3">Below Normal</option>
+									<option value="2">Low</option>
+									<option value="1">Very Low</option>
+									<option value="0">Ultra Low</option>
+								</select>
+								<br />     
+								<label for="inshare">Peer Allowance</label>
+								<select name="inshare" class="form-control">
+									<option value="1000">x10</option>
+									<option value="500">x5</option>
+									<option value="400">x4</option>
+									<option value="300">x3</option>
+									<option value="200">x2</option>
+									<option value="150">x1.5</option>
+									<option value="100" selected>Normal</option>
+									<option value="75">75%</option>
+									<option value="50">50%</option>
+									<option value="20">20%</option>
+									<option value="10">10%</option>
+									<option value="5">5%</option>
+									<option value="2">2%</option>
+								</select>
+								<br />
+								<button type="submit" name="update_inprio" class="waves-effect waves-light btn">Apply</button>
+								<br/><br/>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="collapsible-header">Outgoing Priority Options</div>
+						<div class="collapsible-body center">
+							<div class="container">
+								<label for="outlimit">Outgoing Bandwidth Limit</label>
+								<select name="outlimit" class="form-control">
+									<option value="0" selected>No Limit</option>
+									<option value="100000">100 KB/s</option>
+									<option value="75000">75 KB/s</option>
+									<option value="50000">50 KB/s</option>
+									<option value="40000">40 KB/s</option>
+									<option value="30000">30 KB/s</option>
+									<option value="25000">25 KB/s</option>
+									<option value="20000">20 KB/s</option>
+									<option value="15000">15 KB/s</option>
+									<option value="10000">10 KB/s</option>
+									<option value="7500">7.5 KB/s</option>
+									<option value="5000">5 KB/s</option>
+									<option value="4000">4 KB/s</option>
+									<option value="3000">3 KB/s</option>
+									<option value="2000">2 KB/s</option>
+									<option value="1000">1 KB/s</option>
+								</select>
+								<br />
+								<label for="outprigrp">Priority Group</label>
+								<select name="outpriogrp" class="form-control">
+									<option value="8">Ultra High</option>
+									<option value="7">Very High</option>
+									<option value="6">High</option>
+									<option value="5">Above Normal</option>
+									<option value="4" selected>Normal</option>
+									<option value="3">Below Normal</option>
+									<option value="2">Low</option>
+									<option value="1">Very Low</option>
+									<option value="0">Ultra Low</option>
+								</select>
+								<br />
+								<label for="outshare">Peer Allowance</label>
+								<select name="outshare" class="form-control">
+									<option value="1000">x10</option>
+									<option value="500">x5</option>
+									<option value="400">x4</option>
+									<option value="300">x3</option>
+									<option value="200">x2</option>
+									<option value="150">x1.5</option>
+									<option value="100" selected>Normal</option>
+									<option value="75">75%</option>
+									<option value="50">50%</option>
+									<option value="20">20%</option>
+									<option value="10">10%</option>
+									<option value="5">5%</option>
+									<option value="2">2%</option>
+								</select>
+								<br />
+								<button type="submit" name="update_outprio" class="waves-effect waves-light btn">Apply</button>
+								<br/><br/>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="collapsible-header">Upload Limit Options</div>
+						<div class="collapsible-body center">
+							<div class="container">
+								<label for="ratiolimit">Upload Ratio Limit</label>
+								<select name="ratiolimit" class="form-control">
+									<option value="def" selected>Default</option>
+									<option value="0">None</option>
+									<option value="100">1.00</option>
+									<option value="110">1.10</option>
+									<option value="120">1.20</option>
+									<option value="130">1.30</option>
+									<option value="140">1.40</option>
+									<option value="150">1.50</option>
+									<option value="160">1.60</option>
+									<option value="170">1.70</option>
+									<option value="180">1.80</option>
+									<option value="190">1.90</option>
+									<option value="200">2.00</option>
+									<option value="220">2.20</option>
+									<option value="240">2.40</option>
+									<option value="260">2.60</option>
+									<option value="280">2.80</option>
+									<option value="300">3.00</option>
+									<option value="350">3.50</option>
+									<option value="400">4.00</option>
+									<option value="450">4.50</option>
+									<option value="500">5.00</option>
+									<option value="600">6.00</option>
+									<option value="700">7.00</option>
+									<option value="800">8.00</option>
+									<option value=""></option>
+								</select>
+								<br />
+								<label for="seedlimit">Remote Seed Limit</label>
+								<select name="seedlimit" class="form-control">
+									<option value="def" selected>Default</option>
+									<option value="0">None</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="15">15</option>
+									<option value="20">20</option>
+									<option value="25">25</option>
+									<option value="30">30</option>
+									<option value="35">35</option>
+									<option value="40">40</option>
+									<option value="50">50</option>
+								</select>
+								<button type="submit" name="update_ullimits" class="waves-effect waves-light btn">Apply</button>
+								<br/><br/>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="collapsible-header">Seeding Options</div>
+						<div class="collapsible-body center">
+							<div class="container">
+								<label for="constseeding">Constant Seeding</label>
+								<select name="constseeding" class="form-control">
+									<option value="0" selected>Off</option>
+									<option value="1">On</option>
+								</select>
+								<br />
+								<button type="submit" name="update_constseeding" class="waves-effect waves-light btn">Apply</button>
+								<br />
+								<label for="superseeding">Super Seeding</label>
+								<select name="superseeding" class="form-control">
+									<option value="0" selected>Off</option>
+									<option value="1">On</option>
+								</select>
+								<br />
+								<button type="submit" name="update_superseeding" class="waves-effect waves-light btn">Apply</button>
+								<br/><br/>
+							</div>
+						</div>
+					</li>
+				</ul>
+
+			</div>
+		</form>
+	</div>
+</div>
+
+<!--Import jQuery before materialize.js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
+<script type="text/javascript" src="/init.js"></script>
+</body>
+</html>

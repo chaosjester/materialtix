@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tixati Web Interface</title>
+  <!--Import materialize.css-->
+  <!-- <link type="text/css" rel="stylesheet" href="materialize.min.css"  media="screen,projection"/> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper blue-grey darken-2">
+      <a href="/home" class="brand-logo">Tixati</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/home">Home</a></li>
+        <li><a href="/transfers">Transfers</a></li>
+        <li><a href="/log">Log</a></li>
+        <li><a href="/settings">Settings</a></li>
+        <li><a href="/help">Help</a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li><a href="home">Home</a></li>
+        <li><a href="/transfers">Transfers</a></li>
+        <li><a href="/log">Log</a></li>
+        <li><a href="/settings">Settings</a></li>
+        <li><a href="/help">Help</a></li>
+      </ul>
+    </div>
+  </nav>
+  </div>
+  <br>
+<div class="container">
+<form method="post" action="/bandwidth/action">
+<table class="bwctrls"><tbody>
+  <tr>
+    <td>KB/s In <input type="checkbox" name="throttle_in" value="1" $throttle_in_checked$/><input type="number" name="throttle_in_kbps" min="1" max="100000" value="$throttle_in_kbps$"/></td>
+    <td>KB/s Out <input type="checkbox" name="throttle_out" value="1" $throttle_out_checked$/><input type="number" name="throttle_out_kbps" min="1" max="100000" value="$throttle_out_kbps$"/></td>
+    <td><input type="checkbox" name="autolimit" value="1" $autolimit_checked$/><label for="autolimit">Auto Limit</label></td>
+    <td>Presets <select name="bwpresets"><!--select bwpresets--></select></td>
+    <td><input type="submit" name="update" Value="Apply"/></td>
+  </tr>
+</tbody></table>
+</form>
+
+
+
+<div class="row">
+
+<div id="bwin" style="height: 250px;"></div>
+
+
+
+  <div class="col s12">
+
+<image width="100%" id="chart_in"/>
+</div>
+</div>
+<div class="row">
+  <div class="col s12">
+
+<image width="100%" id="chart_out"/>
+</div>
+</div>
+<br/>
+
+
+  <noscript><image width="100%" src="bandwidth/chart_ping_480x300_1.png" alt="Auto-Limit Ping Round Trip Milliseconds"/></noscript>
+  <image width="100%" id="chart_ping"/>
+  <br/>
+
+<br/>
+</div>
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<!-- <script type="text/javascript" src="materialize.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
+<script type="text/javascript" src="/init.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+<script>
+<!--
+// setInterval(function setupcharts()
+//{
+//   var w = window.innerWidth || document.documentElement.clientWidth;w=Math.floor(Math.max(200,(w-16)*0.98));
+//   var h= window.innerHeight || document.documentElement.clientHeight;h=Math.floor(Math.max(120,h/2-90));
+//   document.getElementById("chart_in").src="bandwidth/chart_in_"+w+"x"+h+"_1.png";
+//   document.getElementById("chart_out").src="bandwidth/chart_out_"+w+"x"+h+"_1.png";
+//   document.getElementById("chart_ping").src="bandwidth/chart_ping_"+w+"x"+h+"_1.png";
+// }, 2000);
+//-->
+
+
+
+Morris.Area({
+  element: 'bwin',
+  data: [
+    { y: '2006', a: 100, b: 90 },
+    { y: '2007', a: 75,  b: 65 },
+    { y: '2008', a: 50,  b: 40 },
+    { y: '2009', a: 75,  b: 65 },
+    { y: '2010', a: 50,  b: 40 },
+    { y: '2011', a: 75,  b: 65 },
+    { y: '2012', a: 100, b: 90 }
+  ],
+  xkey: 'y',
+  ykeys: ['a', 'b'],
+  labels: ['Series A', 'Series B']
+});
+
+</script>
+</body>
+</html>

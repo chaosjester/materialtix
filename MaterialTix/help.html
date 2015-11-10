@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tixati Web Interface</title>
+  <!--Import materialize.css-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper blue-grey darken-2">
+      <a href="/home" class="brand-logo">Tixati</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/home">Home</a></li>
+        <li><a href="/transfers">Transfers</a></li>
+        <li><a href="/log">Log</a></li>
+        <li><a href="/settings">Settings</a></li>
+        <li><a href="/help">Help</a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li><a href="/home">Home</a></li>
+        <li><a href="/transfers">Transfers</a></li>
+        <li><a href="/log">Log</a></li>
+        <li><a href="/settings">Settings</a></li>
+        <li><a href="/help">Help</a></li>
+      </ul>
+    </div>
+  </nav>
+  </div>
+  <br/><br/><br/>
+  <div class="container">
+    <div class="row">
+      <div class="center">
+        <h4>Tixati v$strver$</h4>
+        <p>Copyright $strveryear$ Tixati Software Inc.</p>
+        <br/>
+        <ul class="collapsible" data-collapsible="accordion">
+          <li>
+            <div class="collapsible-header">Tixati Links</div>
+            <div class="collapsible-body">
+              <a href="http://support.tixati.com" target="_blank">Online Help</a>
+              <br/>
+              <a href="http://www.tixati.com/news" target="_blank">Tixati News</a>
+              <br/>
+              <a href="http://forum.tixati.com" target="_blank">Support Forum</a>
+              <br/>
+              <a href="http://update-check.tixati.com/checkver/$strfullver$" target="_blank">Check For Updates</a>
+              <br>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header active">Theme Information</div>
+            <div class="collapsible-body">
+              <p>MaterialTix V0.5b <br> Theme by ChaosJester <br>
+                <a href="http://materialtix.chaosjester.net" class="waves-effect waves-light btn blue-grey darken-1" target="_blank">Website</p></a>
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header">Changelog</div>
+              <div class="collapsible-body">
+                <br>
+                <ul>
+                <h6>Version 0.5b</h6>
+                <li>Bug fixes:</li>
+                <li>Progress bar on Transfers > Details > Files fixed</li>
+                <li>Fixed misalligned Tixati text in top left corner of the page</li>
+                <li>Changed Button colours</li>
+                </ul>
+                <br>
+                <h6>Version 0.5a</h6>
+                <ul>
+                  <li>Home page looks cleaner on mobile now. The Add File/Magnet link cards were replaced with buttons</li>
+                  <li>Log page and file transfer logs now update</li>
+                </ul>
+                <h6>Version 0.5</h6>
+                <ul>
+                  <li>IT'S ALIVE!!!</li>
+                  <li>Transfer status on home page now updates</li>
+                  <li>Progress bars on transfer and File cards</li>
+                  <li>The progress bars update every 2.5 seconds</li>
+                  <li>Progress and Status text will also update</li>
+                </ul>
+                <br>
+                <h6>Version 0.4</h6>
+                <ul>
+                  <li>CARDS!!!</li>
+                  <li>Replaced table elements in the UI with Cards</li>
+                  <li>Tabified the Transfer Details page</li>
+                  <li>Changed the position and look of the Stop/Start/Remove/Delete buttons on the Transfer page and Details page</li>
+                </ul>
+                <br>
+                <h6>Version 0.3</h6>
+                <ul>
+                  <li>Fixed Add File option on home page</li>
+                  <li>Added Filter option on Transfers Page (Settings > WebUI Settings)</li>
+                </ul>
+                <br>
+                <h6>Version 0.2</h6>
+                <ul>
+                  <li>Added priority controls to Transfer pages</li>
+                  <li>Added Start/Stop/Remove/Delete buttons to Transfer pages</li>
+                  <li>Cleaned up log pages</li>
+                  <li>Cleaned up Settings page</li>
+                  <li>Cleaned up Help Page</li>
+                  <li>Made the interface more responsive on Mobile devices</li>
+                </ul>
+                <br>
+                <br>
+                <h6>Version 0.1</h6>
+                <ul>
+                  <li>Initial release</li>
+                </ul>
+                <br>
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header">To Do</div>
+              <div class="collapsible-body">
+                <br>
+                <h6>For Version 0.6</h6>
+                <ul>
+                  <li>Possibly add in more of the stuff that is in the default interface.</li>
+                </ul>
+                <br>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/init.js"></script>
+  </body>
+  </html>

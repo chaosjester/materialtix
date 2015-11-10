@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Tixati Web Interface</title>
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+
+  <body>
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper blue-grey darken-2">
+      <a href="/home" class="brand-logo">&nbsp;&nbsp;Tixati</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="/home">Home</a></li>
+          <li><a href="/transfers">Transfers</a></li>
+          <li><a href="/log">Log</a></li>
+          <li><a href="/settings">Settings</a></li>
+          <li><a href="/help">Help</a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+          <li><a href="/home">Home</a></li>
+          <li><a href="/transfers">Transfers</a></li>
+          <li><a href="/log">Log</a></li>
+          <li><a href="/settings">Settings</a></li>
+          <li><a href="/help">Help</a></li>
+        </ul>
+    </div>
+  </nav>
+</div>
+<br/>
+<div class="container center">
+<p>Confirm Transfer Removal<br/>(This will not delete downloaded files)</p>
+<br/>
+<br/>
+
+<form method="post" action="/transfers/action">
+<div class="row">
+<!--list_start selected_transfers-->
+          <div class="col s12 m8 offset-m2">
+            <div class="card hoverable">
+              <div class="card-content white-text blue-grey-text text-lighten-2">
+                <span class="card-title"><input class="checkbox" id="$guid$" type="checkbox" checked="checked" name="$guid$" value="1" onclick="udctrls()"/><label for="$guid$"><a href="/transfers/$guid$/details" class="truncate">$name$</a></label></span>
+                <p class="center">Progress: $progress$% - Status: $status$</p>
+                </div>
+            </div>
+          </div>
+<!--list_end-->
+</div>
+<br/>
+<button type="submit" name="removeconf" class="waves-effect waves-light btn blue-grey darken-1">Remove Transfers</button>
+<button type="submit" name="nav_transfers" class="waves-effect waves-light btn blue-grey darken-1">Cancel</button>
+</form>
+
+<br/>
+<br/>
+</div>
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/init.js"></script>
+  </body>
+</html>
+
+

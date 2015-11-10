@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tixati Web Interface</title>
+  <!--Import materialize.css-->
+  <!-- <link type="text/css" rel="stylesheet" href="materialize.min.css"  media="screen,projection"/> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper blue-grey darken-2">
+        <a href="/home" class="brand-logo">Tixati</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="/home">Home</a></li>
+          <li><a href="/transfers">Transfers</a></li>
+          <li><a href="/log">Log</a></li>
+          <li><a href="/settings">Settings</a></li>
+          <li><a href="/help">Help</a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+          <li><a href="home">Home</a></li>
+          <li><a href="/transfers">Transfers</a></li>
+          <li><a href="/log">Log</a></li>
+          <li><a href="/settings">Settings</a></li>
+          <li><a href="/help">Help</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <br>
+  <!-- <div class="container"> --> <!-- CARDS -->
+  <div class="row">
+    <div class="col s12 m6 offset-m3 hide-on-med-and-up">
+      <div class="center">
+        <a class="waves-effect waves-light btn blue-grey darken-1 modal-trigger" href="#addmag">Add Link</a>
+        <a class="waves-effect waves-light btn blue-grey darken-1 modal-trigger" href="#addfile">Add File</a>
+        <br>
+      </div>
+    </div>
+    <div class="col s12 m4">
+     <div class="card blue-grey darken-1 hoverable">
+       <div class="card-content white-text">
+        <span class="card-title">Active Transfers</span>
+        <p>Downloading<span id="downloading" class="right">$downloading$</span></p>
+        <p>Seeding<span id="seeding" class="right">$seeding$</span></p>
+        <p>Peer Connections<span id="peerconnections" class="right">$peerconnections$</span></p>
+        <p>B/s In<span id="bpsin" class="right">$bpsin$</span></p>
+        <p>B/s Out<span id="bpsout" class="right">$bpsout$</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m4">
+   <div class="card blue-grey darken-1 hoverable">
+     <div class="card-content white-text">
+      <span class="card-title">Bytes Transferred</span>
+      <p>Total Bytes In<span id="totalbytesin" class="right">$totalbytesin$</span></p>
+      <p>Total Bytes Out<span id="totalbytesout" class="right">$totalbytesout$</span></p>
+      <p>File Bytes In<span id="filebytesin" class="right">$filebytesin$</span></p>
+      <p>File Bytes Out<span id="filebytesout" class="right">$filebytesout$</span></p>
+      <p>Upload Ratio<span id="uploadratio" class="right">$uploadratio$</span></p>
+    </div>
+  </div>
+</div>
+<div class="col s12 m4">
+ <div class="card blue-grey darken-1 hoverable">
+   <div class="card-content white-text">
+    <span class="card-title truncate">Incoming Connections</span>
+    <p>Port<span id="inc_port" class="right">$inc_port$</span></p>
+    <p>Status<span id="inc_status" class="right">$inc_status$</span></p>
+    <p>Received<span id="inc_received" class="right">$inc_received$</span></p>
+    <p>Negotiating<span id="inc_negotiating" class="right">$inc_negotiating$</span></p>
+    <p>Placed<span id="inc_placed" class="right">$inc_placed$</span></p>
+  </div>
+</div>
+</div>
+<div class="row hide-on-small-only">
+  <div class="col s12 m10 offset-m1">
+   <div class="card blue-grey darken-1 hoverable">
+     <div class="card-content white-text">
+      <span class="card-title">Add Link</span>
+      <form method="post" action="/transfers/action" enctype="multipart/form-data">
+        <input type="text" name="addlinktext" placeholder="Magnet link or HTTP link to .torrent file" />
+        <br/>
+        <input type="checkbox" id="noautostart" name="noautostart" />
+        <label for="noautostart">Stop before file allocation</label>
+        <br />
+        <button class="waves-effect waves-light btn right" type="submit" name="addlink">Add</button>
+        <br>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="col s12 m10 offset-m1">
+ <div class="card blue-grey darken-1 hoverable">
+   <div class="card-content white-text">
+    <span class="card-title">Add File</span>
+    <form method="post" action="/transfers/action" enctype="multipart/form-data">
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>File</span>
+          <input type="file" name="metafile">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+      </div>
+      <input type="checkbox" name="noautostart" id="noautofile" value="1"/>
+      <label for="noautofile">Stop before file allocation</label>
+      <br>
+      <button class="waves-effect waves-light btn right" type="submit" name="addmetafile">Add</button>
+      <br>
+    </form>
+  </div>
+</div>
+</div>
+</div>
+</div> <!-- ROW END -->
+<!-- </div> --> <!-- END CARDS -->
+
+<!-- Modal Structure -->
+<div id="addmag" class="modal bottom-sheet">
+  <div class="modal-content">
+    <h4 class="center">Add Magnet Link</h4>
+    <form method="post" action="/transfers/action" enctype="multipart/form-data">
+      <input type="text" name="addlinktext" placeholder="Magnet link or HTTP link to .torrent file" /><br/>
+      <input type="checkbox" id="modalnoautostart" name="noautostart" />
+      <label for="modalnoautostart">Stop before file allocation</label>      
+
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <button class="waves-effect waves-green btn-flat" type="submit" name="addlink">Add</button>
+    </form>
+  </div>
+</div>
+</div>
+
+<!-- Modal Structure -->
+<div id="addfile" class="modal bottom-sheet">
+  <div class="modal-content">
+    <h4 class="center">Add File</h4>
+    <form method="post" action="/transfers/action" enctype="multipart/form-data">
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>File</span>
+          <input type="file" name="metafile">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+      </div>
+      <br>
+      <input type="checkbox" name="noautostart" id="modalnoautofile" value="1" class="center"/>
+      <label for="modalnoautofile">Stop before file allocation</label>
+      <br>
+      <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+        <button button class="waves-effect waves-green btn-flat" type="submit" name="addmetafile">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
+<script type="text/javascript" src="/init.js"></script>
+
+
+<script type="text/javascript">
+  setInterval(function(){
+    jQuery.ajax({
+      url: "homeprog.html",
+      success: function(result) {
+        var html = jQuery('<div>').html(result);
+        var downloading = (html.find("div#downloading").html());
+        var seeding = (html.find("div#seeding").html());
+        var peerconnections = (html.find("div#peerconnections").html());
+        var bpsin = (html.find("div#bpsin").html());
+        var bpsout = (html.find("div#bpsout").html());
+        var totalbytesin = (html.find("div#totalbytesin").html());
+        var totalbytesout = (html.find("div#totalbytesout").html());
+        var filebytesin = (html.find("div#filebytesin").html());
+        var filebytesout = (html.find("div#filebytesout").html());
+        var uploadratio = (html.find("div#uploadratio").html());
+        var inc_port = (html.find("div#inc_port").html());
+        var inc_status = (html.find("div#inc_status").html());
+        var inc_received = (html.find("div#inc_received").html());
+        var inc_negotiating = (html.find("div#inc_negotiating").html());
+        var inc_placed = (html.find("div#inc_placed").html());
+        $('#downloading').text(downloading);
+        $('#seeding').text(seeding);
+        $('#peerconnections').text(peerconnections);
+        $('#bpsin').text(bpsin);
+        $('#bpsout').text(bpsout);
+        $('#totalbytesin').text(totalbytesin);
+        $('#totalbytesout').text(totalbytesout);
+        $('#uploadratio').text(uploadratio);
+        $('#inc_port').text(inc_port);
+        $('#inc_status').text(inc_status);
+        $('#inc_received').text(inc_received);
+        $('#inc_negotiating').text(inc_negotiating);
+        $('#inc_placed').text(inc_placed);
+        $('#filebytesin').text(filebytesin);
+        $('#filebytesout').text(filebytesout);
+      },
+    });
+}, 2500);
+</script>
+
+
+</body>
+</html>

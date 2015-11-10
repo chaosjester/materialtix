@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tixati Web Interface</title>
+  <!--Import materialize.css-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper blue-grey darken-2">
+        <a href="/home" class="brand-logo">Tixati</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="/home">Home</a></li>
+          <li><a href="/transfers">Transfers</a></li>
+          <li><a href="/log">Log</a></li>
+          <li><a href="/settings">Settings</a></li>
+          <li><a href="/help">Help</a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+          <li><a href="/home">Home</a></li>
+          <li><a href="/transfers">Transfers</a></li>
+          <li><a href="/log">Log</a></li>
+          <li><a href="/settings">Settings</a></li>
+          <li><a href="/help">Help</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <br/>
+
+  <div class="container">
+    <ul class="collapsible popout center" data-collapsible="accordion">
+     <li>
+       <div class="collapsible-header">Download/Upload Options</div>
+       <div class="collapsible-body center">
+         <div class="container">
+           <form method="post" action="/settings/action">
+             <br>
+             <label for="setting_dlslots">Download Slots</label>
+             <input type="number" name="setting_dlslots" min="1" max="1000" value="$setting_dlslots$"/>
+             <br/><br/>
+             <input type="checkbox" id="recycup" name="setting_dlslotrecycle" value="1" $chk_setting_dlslotrecycle$/>
+             <label for="recycup">Recycle unused slots for uploads</label>
+             <br/><br/>
+             <label for"setting_ulslots">Upload Slots</label>
+             <input type="number" name="setting_ulslots" min="1" max="1000" value="$setting_ulslots$"/>
+             <br/><br/>
+             <input type="checkbox" name="setting_ulslotrecycle" id="recycdn" value="1" $chk_setting_ulslotrecycle$/>
+             <label for="recycdn">Recycle unused slots for downloads</label>
+             <br/><br/>
+             <button type="submit" name="update_slots" Value="Apply" class="waves-effect waves-light btn blue-grey darken-1"/>Apply</button>
+             <br/><br/>
+           </form>
+           <br/><br/>
+         </div>
+       </div>
+     </li>
+
+     <li>
+      <div class="collapsible-header">Transfer Options</div>
+      <div class="collapsible-body center">
+        <div class="container">
+         <form method="post" action="/settings/action">
+           <br>
+           <label for="seedingratiostop">Stop seeding on upload ratio above</label>
+           <input type="number" name="setting_seedingratiostop" id="seedingratiostop" step="0.1" min="0" max="100" value="$setting_seedingratiostop$"/>
+           <br/><br/>
+           <label for="constantratiostop">Stop constant seeds on upload ratio above</label>
+           <input type="number" name="setting_constantratiostop" id="constantratiostop" step="0.1" min="0" max="100" value="$setting_constantratiostop$"/>
+           <br/><br/>
+           <label for="createdratiostop">Stop created seeds on upload ratio above</label>
+           <input type="number" name="setting_createdratiostop" id="createdratiostop" step="0.1" min="0" max="100" value="$setting_createdratiostop$"/>
+           <br/><br/>
+           <input type="checkbox" id="stxf" name="setting_xferautostartnew" value="1" $chk_setting_xferautostartnew$/>
+           <label for="stxf">Start new transfers</label>
+           <br/><br/>
+           <input type="checkbox" id="stup" name="setting_xferautorestart" value="1" $chk_setting_xferautorestart$/>
+           <label for="stup">Start previously running on startup</label>
+           <br/><br/>
+           <button type="submit" name="update_xferautostartstop" Value="Apply" class="waves-effect waves-light btn blue-grey darken-1">Apply</button>
+           <br/><br/>
+         </form>
+         <br/><br/>
+       </div>
+     </div>
+   </li>
+   <li>
+    <div class="collapsible-header">WebUI Options</div>
+    <div class="collapsible-body center">
+      <div class="container">
+       <form method="post" action="/settings/action">
+         <br>
+         <input type="checkbox" name="setting_webui_showfilter" id="filter" value="1" $chk_setting_webui_showfilter$/>
+         <label for="filter">Show filter-box for transfers in Web Interface</label>
+         <br><br>
+         <button class="waves-effect waves-light btn blue-grey darken-1" type="submit" name="update_webui">Apply</button>
+       </form>
+       <br/><br/>
+     </div>
+   </div>
+ </li>
+</ul>
+</div>
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
+<script type="text/javascript" src="/init.js"></script>
+</body>
+</html>
